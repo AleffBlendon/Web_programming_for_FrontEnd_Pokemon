@@ -53,3 +53,29 @@ A aplicação permite buscar Pokémons por nome, tipo ou número da Pokédex, al
 ---
 
 ## 📂 Estrutura do Projeto
+📁 projeto
+├── index.html
+├── style.css
+├── script.js
+└── README.md
+
+## ▶️ Como Executar
+[https://aleffblendon.github.io/Web_programming_for_FrontEnd_Pokemon/]
+
+📚 Conceitos Aplicados
+Consumo de API REST
+Manipulação de DOM
+Programação assíncrona (fetch / then)
+Armazenamento local (LocalStorage)
+Responsividade
+👨‍💻 Autor
+
+Aleff Blendon Costa
+
+📅 Data
+
+Maio de 2026
+
+📌 Versão
+
+1.0
