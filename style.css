@@ -1,0 +1,422 @@
+/* *********************************************************************************************************************************
+** Objetivo: Estilização da aplicação de exibição de Pokémons em formato de cards responsivos.                                    **
+** Descrição: Define layout, cores, espaçamentos e responsividade conforme o modelo proposto.                                     **
+** Tecnologias: CSS3 (Flexbox/Grid)                                                                                               **
+** Autor: Aleff Blendon Costa                                                                                                     **
+** Data: 03/05/2026                                                                                                               **
+** Versão: 1.0                                                                                                                    **
+********************************************************************************************************************************* */
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --clr-bg: #f0f2f5;
+  --clr-surface: #ffffff;
+  --clr-primary: #e63946;
+  --clr-primary-light: #ff6b6b;
+  --clr-text: #1d1d1d;
+  --clr-text-muted: #6b7280;
+  --clr-border: #e5e7eb;
+  --clr-shadow: rgba(0, 0, 0, 0.10);
+  --clr-shadow-hover: rgba(0, 0, 0, 0.18);
+  --radius-card: 16px;
+  --transition: 0.22s ease;
+
+  /* type colours */
+  --type-normal: #A8A878;
+  --type-fire: #F08030;
+  --type-water: #6890F0;
+  --type-electric: #F8D030;
+  --type-grass: #78C850;
+  --type-ice: #98D8D8;
+  --type-fighting: #C03028;
+  --type-poison: #A040A0;
+  --type-ground: #E0C068;
+  --type-flying: #A890F0;
+  --type-psychic: #F85888;
+  --type-bug: #A8B820;
+  --type-rock: #B8A038;
+  --type-ghost: #705898;
+  --type-dragon: #7038F8;
+  --type-dark: #705848;
+  --type-steel: #B8B8D0;
+  --type-fairy: #EE99AC;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  min-height: 100vh;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.header {
+  background: var(--clr-surface);
+  border-bottom: 1px solid var(--clr-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px var(--clr-shadow);
+}
+
+.header__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header__title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.header__poke {
+  color: var(--clr-primary);
+}
+
+/* ── Search bar ───────────────────────────────────────────── */
+.search-bar {
+  display: flex;
+  flex: 1;
+  min-width: 220px;
+  border: 2px solid var(--clr-border);
+  border-radius: 50px;
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+
+.search-bar:focus-within {
+  border-color: var(--clr-primary);
+}
+
+.search-bar__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--clr-text);
+}
+
+.search-bar__input::placeholder {
+  color: var(--clr-text-muted);
+}
+
+.search-bar__btn {
+  background: var(--clr-primary);
+  border: none;
+  color: #fff;
+  padding: 0 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background var(--transition);
+}
+
+.search-bar__btn:hover {
+  background: var(--clr-primary-light);
+}
+
+/* ── Favourites toggle ────────────────────────────────────── */
+.fav-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 2px solid var(--clr-border);
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+
+.fav-toggle:hover {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary);
+}
+
+.fav-toggle.active {
+  background: var(--clr-primary);
+  border-color: var(--clr-primary);
+  color: #fff;
+}
+
+/* ── Main ─────────────────────────────────────────────────── */
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+}
+
+/* ── Status message ───────────────────────────────────────── */
+.status-msg {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--clr-text-muted);
+  margin-bottom: 24px;
+  min-height: 24px;
+}
+
+.status-msg.error {
+  color: var(--clr-primary);
+  font-weight: 600;
+}
+
+/* ── Grid ─────────────────────────────────────────────────── */
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.card {
+  background: var(--clr-surface);
+  border-radius: var(--radius-card);
+  box-shadow: 0 4px 16px var(--clr-shadow);
+  padding: 20px 20px 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: default;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 28px var(--clr-shadow-hover);
+}
+
+/* favourite heart */
+.card__fav {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 0;
+  transition: transform var(--transition);
+}
+
+.card__fav:hover {
+  transform: scale(1.25);
+}
+
+.card__fav svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--clr-primary);
+  fill: none;
+  transition: fill var(--transition);
+}
+
+.card__fav.active svg {
+  fill: var(--clr-primary);
+}
+
+/* name */
+.card__name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  text-align: center;
+  margin-bottom: 12px;
+  padding-right: 28px; /* avoid overlap with heart */
+  width: 100%;
+}
+
+/* image wrapper */
+.card__img-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f3f4f6;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.card__img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  transition: transform var(--transition);
+}
+
+.card:hover .card__img {
+  transform: scale(1.08);
+}
+
+/* info section */
+.card__info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card__info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+  line-height: 1.4;
+}
+
+.card__info-label {
+  font-weight: 700;
+  color: var(--clr-text);
+  white-space: nowrap;
+}
+
+/* types */
+.card__types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: capitalize;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+}
+
+/* dynamic type colours */
+.type-normal   { background: var(--type-normal); }
+.type-fire     { background: var(--type-fire); }
+.type-water    { background: var(--type-water); }
+.type-electric { background: var(--type-electric); color: #333; text-shadow: none; }
+.type-grass    { background: var(--type-grass); }
+.type-ice      { background: var(--type-ice); color: #333; text-shadow: none; }
+.type-fighting { background: var(--type-fighting); }
+.type-poison   { background: var(--type-poison); }
+.type-ground   { background: var(--type-ground); color: #333; text-shadow: none; }
+.type-flying   { background: var(--type-flying); }
+.type-psychic  { background: var(--type-psychic); }
+.type-bug      { background: var(--type-bug); }
+.type-rock     { background: var(--type-rock); }
+.type-ghost    { background: var(--type-ghost); }
+.type-dragon   { background: var(--type-dragon); }
+.type-dark     { background: var(--type-dark); }
+.type-steel    { background: var(--type-steel); color: #333; text-shadow: none; }
+.type-fairy    { background: var(--type-fairy); }
+
+/* ── Skeleton loader ──────────────────────────────────────── */
+.skeleton {
+  background: var(--clr-surface);
+  border-radius: var(--radius-card);
+  box-shadow: 0 4px 16px var(--clr-shadow);
+  padding: 20px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.skeleton__line {
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 6px;
+}
+
+.skeleton__img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton__line--title { width: 60%; height: 18px; }
+.skeleton__line--sm    { width: 80%; height: 12px; }
+.skeleton__line--md    { width: 65%; height: 12px; }
+.skeleton__line--lg    { width: 90%; height: 12px; }
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Load more ────────────────────────────────────────────── */
+.load-more-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.load-more-btn {
+  background: var(--clr-primary);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 36px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.load-more-btn:hover {
+  background: var(--clr-primary-light);
+  transform: translateY(-2px);
+}
+
+.load-more-btn:disabled {
+  background: var(--clr-border);
+  color: var(--clr-text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .header__inner {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+
+  .header__title {
+    font-size: 1.3rem;
+  }
+
+  .main {
+    padding: 20px 16px 40px;
+  }
+
+  .pokemon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+}
